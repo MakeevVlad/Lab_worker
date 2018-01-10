@@ -1,0 +1,44 @@
+
+
+def rem1():
+    if varr.get() == 0:
+        plot_button.grid_remove()
+    if varr.get() == 1:
+        plot_button.grid()
+
+plot_button.grid_remove()
+varr = IntVar()
+t = Checkbutton(frame, variable = varr, command = rem1).grid(row = 5, column = 1)
+
+
+
+aprox_color_button["bg"] = aprox_color_.get()
+
+
+
+
+a_ = []
+args_val = str(arguments_.get()) #Function arguments
+a[0]
+func_val = str(function_.get())  #Function
+
+xpath_val = str(file_path_x_.get()) #Paths of data files 2, 3
+ypath_val = str(file_path_y_.get())
+
+xlab_val = str(x_label_.get())   #X label 4
+ylab_val = str(y_label_.get())   #Y label 5
+
+ap_var_val = int(var.get()) #If we need aproximation(1 - yes, 0 - no) 6
+
+aprx_style_val = str(aprox_style_.get())# Aproximation style 7
+aprx_color_val = str(aprox_color_.get())#Aproximation Color 8
+main_style_val = str(main_style_.get())# Aproximation style 9
+main_color_val = str(main_color_.get())#Aproximation Color 10
+
+
+print(aprx_style_val)
+
+if ap_var_val == 1:
+    Rl.Enter_function(num, args_val, func_val)
+
+Plotter.Plot_s(num, xpath_val, ypath_val, xlab_val, ylab_val, ap_var_val, aprx_style_val, aprx_color_val, main_style_val, main_color_val)
