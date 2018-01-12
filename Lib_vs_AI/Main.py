@@ -90,6 +90,29 @@ def Dev_tool():
     file_path_y_.insert(END, 'Y.txt')
     file_path_x_.insert(END, 'X.txt')
 
+def Extras_button_addon_err():
+    if err_var.get() == 0 and xrs_var.get() == 1:
+        errorbars_y_.grid_remove()
+        errorbars_x_.grid_remove()
+        error_args_.grid_remove()
+        error_args_label_.grid_remove()
+        errorbars_x_label_.grid_remove()
+        errorbars_y_label_.grid_remove()
+    if err_var.get() == 1 and xrs_var.get() == 0:
+        errorbars_y_.grid_remove()
+        errorbars_x_.grid_remove()
+        error_args_label_.grid_remove()
+        error_args_.grid_remove()
+        errorbars_x_label_.grid_remove()
+        errorbars_y_label_.grid_remove()
+    if err_var.get() == 1 and xrs_var.get() == 1:
+        errorbars_y_.grid()
+        errorbars_x_.grid()
+        error_args_label_.grid()
+        error_args_.grid()
+        errorbars_x_label_.grid()
+        errorbars_y_label_.grid()
+
 def Extras_button_addon():
     if xrs_var.get() == 1 and var.get() == 0:
         aprox_style_label_.grid_remove()
@@ -107,6 +130,8 @@ def Extras_button_addon():
         aprox_color_button.grid()
         aprox_color_.grid()
 
+
+#SentDex
 def Extras_button():
     if xrs_var.get() == 0:
         aprox_style_label_.grid_remove()
@@ -119,17 +144,41 @@ def Extras_button():
         main_color_button.grid_remove()
         main_color_.grid_remove()
         #########################
-    if xrs_var.get() == 1:
-        if var.get() == 1:
-            aprox_style_label_.grid()
-            aprox_style_.grid()
-            aprox_color_button.grid()
-            aprox_color_.grid()
+        errorbars_x_.grid_remove()
+        error_args_label_.grid_remove()
+        errorbars_y_.grid_remove()
+        error_args_.grid_remove()
+        errorbars_x_label_.grid_remove()
+        errorbars_y_label_.grid_remove()
+        
+
+    if err_var.get() == 0:
+        errorbars_x_.grid_remove()
+        error_args_label_.grid_remove()
+        errorbars_y_.grid_remove()
+        error_args_.grid_remove()
+        errorbars_x_label_.grid_remove()
+        errorbars_y_label_.grid_remove()
+
+    if xrs_var.get() == 1 and var.get() == 1:
+        aprox_style_label_.grid()
+        aprox_style_.grid()
+        aprox_color_button.grid()
+        aprox_color_.grid()
         #########################
+    if xrs_var.get() == 1:
         main_style_label_.grid()
         main_style_.grid()
         main_color_button.grid()
         main_color_.grid()
+
+    if err_var.get() == 1 and xrs_var.get() == 1:
+        errorbars_y_.grid()
+        errorbars_x_.grid()
+        error_args_label_.grid()
+        error_args_.grid()
+        errorbars_x_label_.grid()
+        errorbars_y_label_.grid()
 
 root = Tk()
 root.title('Lab_worker_demo')
@@ -211,7 +260,7 @@ main_color_button.grid(row = 6, column = 7, columnspan = 4, padx =(10, 10), ipad
 
 #ErrorBars
 err_var = IntVar()
-errorbars_button_ = Checkbutton(frame, variable = err_var, command = Extras_button_addon, text = 'ErrorBars')
+errorbars_button_ = Checkbutton(frame, variable = err_var, command = Extras_button_addon_err, text = 'ErrorBars')
 errorbars_button_.grid(row = 8, column = 1, columnspan = 3, padx = (4,0),  pady = (10, 0))
 
 errorbars_x_label_ = Label(frame, text = 'X error')
@@ -230,8 +279,8 @@ error_args_label_ = Label(frame, text = 'Error function arguments')
 error_args_label_.grid(row = 8, column = 11, columnspan = 4, pady = (10, 0))
 error_args_ = Entry(frame, width = 20)
 error_args_.grid(row = 9, column = 11, columnspan = 5, pady = (0, 10))
-
-
+error_args_.insert(END, 'x')
+#error_bars_style_ = Label(frame,)
 
 
 #If we need extra settings
