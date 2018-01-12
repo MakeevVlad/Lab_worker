@@ -150,9 +150,10 @@ def Extras_button():
         error_args_.grid_remove()
         errorbars_x_label_.grid_remove()
         errorbars_y_label_.grid_remove()
-        
+
 
     if err_var.get() == 0:
+        errorbars_button_.grid_remove()
         errorbars_x_.grid_remove()
         error_args_label_.grid_remove()
         errorbars_y_.grid_remove()
@@ -167,12 +168,14 @@ def Extras_button():
         aprox_color_.grid()
         #########################
     if xrs_var.get() == 1:
+        errorbars_button_.grid()
         main_style_label_.grid()
         main_style_.grid()
         main_color_button.grid()
         main_color_.grid()
 
     if err_var.get() == 1 and xrs_var.get() == 1:
+
         errorbars_y_.grid()
         errorbars_x_.grid()
         error_args_label_.grid()
