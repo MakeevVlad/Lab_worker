@@ -43,6 +43,13 @@ def Plot_button():
     arg_.append(int(err_var.get())) #   12
     arg_.append(num_err) #13
 
+    arg_.append(int(sc_var.get())) #If we need scale settings 14
+    arg_.append(float(locator_x_.get())) #X scale 15
+    arg_.append(float(locator_y_.get())) #Y scale 16
+    arg_.append(str(x_adaptation_.get())) #X adaptation function 17
+    arg_.append(str(y_adaptation_.get())) #Y adaptation function 18
+    arg_.append(int(adapt_var.get())) # If we need adaptation function 19
+
     #Saving approx function
     if var.get() == 1:
         Rl.Enter_function(num, args_val, func_val)
@@ -68,7 +75,7 @@ def Reload_button():
     file1.write('#Changeble file\n\nimport Functions as F\nfrom importlib import reload')
     file1.write('\n\ndef f_num(*args):\n\tnum = args[0]\n\tif num == 0:\n\t\treturn 0\n')
     #Cleaning Functions.py
-    file2.write('#Changeble file\n\nfrom numpy import sin, cos')
+    file2.write('#Changeble file\n\nfrom math import *')
 
     file1.close()
     file2.close()
@@ -79,7 +86,7 @@ def Reload_button():
     file1.write('#Changeble file\n\nimport Err_Functions as F\nfrom importlib import reload')
     file1.write('\n\ndef err_num(*args):\n\tnum = args[0]\n\tif num == 0:\n\t\treturn 0\n')
     #Cleaning Err_Functions.py
-    file2.write('#Changeble file\n\nfrom numpy import sin, cos')
+    file2.write('#Changeble file\n\nfrom math import *')
 
     file1.close()
     file2.close()
@@ -130,6 +137,47 @@ def Extras_button_addon():
         aprox_color_button.grid()
         aprox_color_.grid()
 
+def Extras_button_addon_scale():
+    if sc_var.get() == 0 and xrs_var.get() == 1:
+        locator_x_.grid_remove()
+        locator_x_label_.grid_remove()
+        locator_y_.grid_remove()
+        locator_y_label_.grid_remove()
+
+    if sc_var.get() == 1 and xrs_var.get() == 0:
+        scale_var_.grid_remove()
+        locator_x_.grid_remove()
+        locator_x_label_.grid_remove()
+        locator_y_.grid_remove()
+        locator_y_label_.grid_remove()
+
+    if sc_var.get() == 1 and xrs_var.get() == 1:
+        scale_var_.grid()
+        locator_x_.grid()
+        locator_x_label_.grid()
+        locator_y_.grid()
+        locator_y_label_.grid()
+
+def Extras_button_addon_adapt():
+    if adapt_var.get() == 0 and xrs_var.get() == 1:
+        y_adaptation_label_.grid_remove()
+        y_adaptation_.grid_remove()
+        x_adaptation_label_.grid_remove()
+        x_adaptation_.grid_remove()
+
+    if adapt_var.get() == 1 and xrs_var.get() == 1:
+        y_adaptation_label_.grid()
+        y_adaptation_.grid()
+        x_adaptation_.grid()
+        x_adaptation_label_.grid()
+
+    if adapt_var.get() == 1 and xrs_var.get() == 0:
+        y_adaptation_label_.grid_remove()
+        y_adaptation_.grid_remove()
+        x_adaptation_label_.grid_remove()
+        x_adaptation_.grid_remove()
+
+
 
 #SentDex
 def Extras_button():
@@ -150,7 +198,18 @@ def Extras_button():
         error_args_.grid_remove()
         errorbars_x_label_.grid_remove()
         errorbars_y_label_.grid_remove()
-
+        #########################
+        scale_var_.grid_remove()
+        locator_x_.grid_remove()
+        locator_x_label_.grid_remove()
+        locator_y_.grid_remove()
+        locator_y_label_.grid_remove()
+        #########################
+        data_adaptation_var_.grid_remove()
+        y_adaptation_label_.grid_remove()
+        y_adaptation_.grid_remove()
+        x_adaptation_label_.grid_remove()
+        x_adaptation_.grid_remove()
 
     if err_var.get() == 0:
         errorbars_button_.grid_remove()
@@ -169,19 +228,46 @@ def Extras_button():
         #########################
     if xrs_var.get() == 1:
         errorbars_button_.grid()
+        scale_var_.grid()
+        data_adaptation_var_.grid()
+
         main_style_label_.grid()
         main_style_.grid()
         main_color_button.grid()
         main_color_.grid()
 
     if err_var.get() == 1 and xrs_var.get() == 1:
-
         errorbars_y_.grid()
         errorbars_x_.grid()
         error_args_label_.grid()
         error_args_.grid()
         errorbars_x_label_.grid()
         errorbars_y_label_.grid()
+
+    if sc_var.get() == 0:
+        locator_x_.grid_remove()
+        locator_x_label_.grid_remove()
+        locator_y_.grid_remove()
+        locator_y_label_.grid_remove()
+
+    if sc_var.get() == 1 and xrs_var.get() == 1:
+        scale_var_.grid()
+        locator_x_.grid()
+        locator_x_label_.grid()
+        locator_y_.grid()
+        locator_y_label_.grid()
+
+    if adapt_var.get() == 0:
+        y_adaptation_label_.grid_remove()
+        y_adaptation_.grid_remove()
+        x_adaptation_label_.grid_remove()
+        x_adaptation_.grid_remove()
+    if adapt_var.get() == 1 and xrs_var.get() == 1:
+        y_adaptation_label_.grid()
+        y_adaptation_.grid()
+        x_adaptation_label_.grid()
+        x_adaptation_.grid()
+
 
 root = Tk()
 root.title('Lab_worker_demo')
@@ -229,6 +315,8 @@ x_label_.grid(row = 4, column = 1, columnspan = 4, padx = (10, 0))
 y_label_label_ = Label(frame, text = 'Y axis label').grid(row = 3, column = 5, columnspan = 4)
 y_label_= Entry(frame, width = 20)
 y_label_.grid(row = 4, column = 5, columnspan = 4, padx = (10, 0))
+
+
 
 #Line styless
 aprox_style_label_ = Label(frame, text = 'Approximation style\n(-, -., --, :)')
@@ -285,12 +373,46 @@ error_args_.grid(row = 9, column = 11, columnspan = 5, pady = (0, 10))
 error_args_.insert(END, 'x')
 #error_bars_style_ = Label(frame,)
 
+#Scale settings
+sc_var = IntVar()
+scale_var_ = Checkbutton(frame, text = 'Scale settings', variable = sc_var, command = Extras_button_addon_scale)
+scale_var_.grid(row = 10, column = 1, columnspan = 3, padx = (31,0),  pady = (10, 0))
+
+locator_x_label_ = Label(frame, text = 'X scale')
+locator_x_label_.grid(row = 10, column = 5, columnspan = 2, pady = (10, 0), padx = (0, 7))
+locator_x_ = Entry(frame, width = 10)
+locator_x_.grid(row = 11, column = 5, columnspan = 1, pady = (0, 10))
+locator_x_.insert(END, 1.0)
+
+
+locator_y_label_ = Label(frame, text = 'Y scale')
+locator_y_label_.grid(row = 10, column = 6, columnspan = 3, pady = (10, 0), padx = (4, 0))
+locator_y_ = Entry(frame, width = 10)
+locator_y_.grid(row = 11, column = 8, columnspan = 1, pady = (0, 10), padx = (15, 0))
+locator_y_.insert(END, 1.0)
+
+
+#Data adaptation
+adapt_var = IntVar()
+data_adaptation_var_ = Checkbutton(frame, text = 'Data adaptation', variable = adapt_var, command = Extras_button_addon_adapt)
+data_adaptation_var_.grid(row = 12, column = 1, columnspan = 4, padx = (9,0),  pady = (10, 0))
+
+y_adaptation_label_ = Label(frame, text = 'Y adapt function')
+y_adaptation_label_.grid(row = 12, column = 5, columnspan = 4, pady = (10, 0), padx = (0, 10))
+y_adaptation_ = Entry(frame, width = 20)
+y_adaptation_.grid(row = 13, column = 5, columnspan = 4, pady = (10, 0), padx = (0, 10))
+
+x_adaptation_label_ = Label(frame, text = 'X adapt function')
+x_adaptation_label_.grid(row = 12, column = 9, columnspan = 6, pady = (10, 0), padx = (10, 7))
+x_adaptation_ = Entry(frame, width = 20)
+x_adaptation_.grid(row = 13, column = 9, columnspan = 6, pady = (10, 0), padx = (10, 7))
+
 
 #If we need extra settings
 xrs_var = IntVar()
 Extras_button()
 extras_button_ = Checkbutton(frame, text = 'More settings', variable = xrs_var, command = Extras_button)
-extras_button_.grid(row = 5, column = 1, columnspan = 4)
+extras_button_.grid(row = 5, column = 1, columnspan = 3, padx = (30, 0))
 
 Dev_tool()
 

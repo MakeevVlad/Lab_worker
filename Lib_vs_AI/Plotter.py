@@ -42,7 +42,8 @@ def Plot_n(num, file_path):
 
 
 def Plot_s(num, filex_path, filey_path, x_label, y_label, apr_val,
-apr_style, apr_color, main_style, main_color, x_err, var_err, num_err):
+apr_style, apr_color, main_style, main_color, x_err, var_err, num_err,
+var_scale, x_scale, y_scale, x_adapt, y_adapt, adapt_var):
 
 
     fig, ax = plt.subplots()
@@ -69,18 +70,42 @@ apr_style, apr_color, main_style, main_color, x_err, var_err, num_err):
             xa[c] = float(i)
             c+=1
             ya.append(F_l.f_num(num, i))
-        ax.plot(xa, ya, ls = apr_style, color = apr_color)
+        ax.plot(xa, ya, ls = apr_style, color = apr_color, lw = 1)
+
+    if adapt_var == 1:
+        if apr_val == 1:
+            n = 2
+        if apr_val == 0:
+            n = 1
+        Rl.Enter_function(n, 'x', x_adapt)
+        Rl.Enter_function(n + 1, 'y', y_adapt)
+        xn = []
+        yn = []
+        for i in range(0, len(x)):
+            xn.append(F_l.f_num(1, x[i]))
+            yn.append(F_l.f_num(2 , float(y[i])))
+            print(yn[i])
+        print(F_l.f_num(1, 9999))
+        x = xn
+        y = yn
 
     #Errorbars
     if var_err == 1:
-        x_err = x_err
         y_err = []
-
-
         for i in range(0, len(y)):
             y_err.append(float(Err_l.err_num( num_err, x[i])))
+        ax.errorbar(x, y, xerr = x_err, yerr = y_err, color = 'red', ls = ' ', lw = 1 )
 
-        ax.errorbar(x, y, xerr = x_err, yerr = y_err )
+    #Scale
+    if var_scale ==1:
+        x_loc = matplotlib.ticker.MultipleLocator (base = x_scale)
+        y_loc = matplotlib.ticker.MultipleLocator (base = y_scale)
+        ax.xaxis.set_major_locator(x_loc)
+        ax.yaxis.set_major_locator(y_loc)
+
+
+
+    ax.grid(color="blue", which="both", linestyle=':', linewidth=0.5)
 
     ax.set_ylabel(y_label)
     ax.set_xlabel(x_label)

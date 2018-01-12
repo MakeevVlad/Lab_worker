@@ -7,3 +7,11 @@ def f_num(*args):
 	num = args[0]
 	if num == 0:
 		return 0
+	if num == 1:
+		global F
+		F = reload(F)
+		return F.f_1(*args)
+	if num == 2:
+		global F
+		F = reload(F)
+		return F.f_2(*args)
