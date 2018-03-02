@@ -52,7 +52,21 @@ def Plot_button():
 
     #Saving approx function
     if var.get() == 1:
-        Rl.Enter_function(num, args_val, func_val)
+        Rl.Enter_function('1', args_val, func_val)
+
+    if adapt_var == 1:
+        if apr_val == 0:
+            Rl.Enter_adapt_function(1, str(y_adaptation_.get()))
+            Rl.Enter_adapt_function(2, x_adaptation_.get())
+
+        '''
+        Rl.Enter_function(n, 'y', str(y_adaptation_.get()))
+        Rl.Enter_function(n, 'x', str(x_adaptation_.get()))
+        '''
+
+    if adapt_var.get() == 1:
+        Rl.Enter_adapt_function(1, y_adaptation_)
+        Rl.Enter_adapt_function(2, x_adaptation_)
 
     #Saving error function
     if err_var.get() == 1:
@@ -85,6 +99,17 @@ def Reload_button():
     #Cleaning Err_Functions_list.py
     file1.write('#Changeble file\n\nimport Err_Functions as F\nfrom importlib import reload')
     file1.write('\n\ndef err_num(*args):\n\tnum = args[0]\n\tif num == 0:\n\t\treturn 0\n')
+    #Cleaning Err_Functions.py
+    file2.write('#Changeble file\n\nfrom math import *')
+
+    file1.close()
+    file2.close()
+
+    file1 = open('Adapt_Functions_list.py', 'w+')
+    file2 = open('Adapt_Functions.py', 'w+')
+    #Cleaning Err_Functions_list.py
+    file1.write('#Changeble file\n\nimport Adapt_Functions as F\nfrom importlib import reload')
+    file1.write('\n\ndef f_num(*args):\n\tnum = args[0]\n\tif num == 0:\n\t\treturn 0\n')
     #Cleaning Err_Functions.py
     file2.write('#Changeble file\n\nfrom math import *')
 

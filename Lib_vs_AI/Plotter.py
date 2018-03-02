@@ -10,6 +10,7 @@ from tkinter import *
 import Functions_list as F_l
 import Err_Functions_list as Err_l
 import Functions as F
+import Adapt_Functions_list as A_l
 import Rooling as Rl
 
 #Just for test. Plots only function
@@ -73,21 +74,10 @@ var_scale, x_scale, y_scale, x_adapt, y_adapt, adapt_var):
         ax.plot(xa, ya, ls = apr_style, color = apr_color, lw = 1)
 
     if adapt_var == 1:
-        if apr_val == 1:
-            n = 2
-        if apr_val == 0:
-            n = 1
-        Rl.Enter_function(n, 'x', x_adapt)
-        Rl.Enter_function(n + 1, 'y', y_adapt)
-        xn = []
-        yn = []
         for i in range(0, len(x)):
-            xn.append(F_l.f_num(1, x[i]))
-            yn.append(F_l.f_num(2 , float(y[i])))
-            print(yn[i])
-        print(F_l.f_num(1, 9999))
-        x = xn
-        y = yn
+            x[i] = A_l.f_num(1, y[i])
+            y[i] = A_l.f_num(2 ,x[i])
+
 
     #Errorbars
     if var_err == 1:
